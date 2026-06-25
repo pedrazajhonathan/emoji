@@ -1,0 +1,72 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: black;
+}
+header{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.padre{
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background-color: yellow;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    gap: 100px;
+}
+.hijo1{
+    width: 100%;
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+}
+.hijo1 .container:nth-child(1){
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: black;
+    border-radius: 150% 50% 50% 50%;
+    animation: guiñar .7s linear infinite alternate;
+}
+.hijo1 .container:last-child{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: black;
+    border-radius: 50% 150% 50% 50%;
+    animation: guiñar .7s linear infinite alternate;
+}
+.boca{
+    width: 60%;
+    height: 100px;
+    border-top: 5px solid black;
+    position: absolute;
+    bottom: 40px;
+    animation: reir 3s linear infinite alternate;
+    
+}
+@keyframes reir{
+    from{
+        border-radius: -50%;
+    }to{
+        border-radius: 70%;
+    }
+
+}
+@keyframes guiñar{
+    from{
+        height: 150px;
+    }to{
+        height: 0px;
+    }
+}
