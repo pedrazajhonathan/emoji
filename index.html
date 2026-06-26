@@ -1,20 +1,431 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Emoji World | Expresión Digital</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-color: #ffd166;
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --gradient-1: linear-gradient(135deg, #ff007f, #7928ca);
+            --gradient-2: linear-gradient(135deg, #00dfd8, #007cf0);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #ffd166, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .cta-btn {
+            background: var(--gradient-1);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(121, 40, 202, 0.5);
+        }
+
+        /* Grid de Emojis */
+        .emoji-section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .emoji-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .emoji-card {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .emoji-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 251, 0, 0.3);
+        }
+
+        .emoji-big {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite alternate;
+        }
+
+        .emoji-card:nth-child(2) .emoji-big { animation-delay: 0.5s; }
+        .emoji-card:nth-child(3) .emoji-big { animation-delay: 1s; }
+        .emoji-card:nth-child(4) .emoji-big { animation-delay: 1.5s; }
+
+        .emoji-card h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.4rem;
+        }
+
+        .emoji-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            background-color: #0b111e;
+        }
+
+        /* Animaciones */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-10px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; } /* Simplificado para móviles */
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="padre">
-            <div class="hijo1">
-                <div class="container"></div>
-                <div class="container"></div>
+
+    <nav>
+        <div class="logo">✨ EmojiWorld 🚀</div>
+        <ul class="nav-links">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#emojis">Explorar</a></li>
+            <li><a href="#info">Info</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero" id="inicio">
+        <h1>El idioma más universal del planeta</h1>
+        <p>Los emojis revolucionaron la forma en que nos comunicamos. Expresa emociones, ideas y momentos con solo un carácter de distancia.</p>
+        <a href="#emojis" class="cta-btn">¡Explorar Moods! ⚡</a>
+    </section>
+
+    <section class="emoji-section" id="emojis">
+        <h2 class="section-title">Encuentra tu vibra actual ✌️</h2>
+        
+        <div class="emoji-grid">
+            <div class="emoji-card">
+                <span class="emoji-big">😎</span>
+                <h3>Modo Chill</h3>
+                <p>Para esos días donde todo fluye con tranquilidad y con buena energía.</p>
             </div>
-            <div class="boca"></div>
+
+            <div class="emoji-card">
+                <span class="emoji-big">🔥</span>
+                <h3>On Fire</h3>
+                <p>Estás motivado, dándolo todo y superando cada una de tus metas.</p>
+            </div>
+
+            <div class="emoji-card">
+                <span class="emoji-big">🤯</span>
+                <h3>Mindblown</h3>
+                <p>Cuando descubres algo nuevo que rompe todos tus esquemas.</p>
+            </div>
+
+            <div class="emoji-card">
+                <span class="emoji-big">👾</span>
+                <h3>Gamer Zone</h3>
+                <p>Concentración máxima, modo multijugador activado y listo para ganar.</p>
+            </div>
         </div>
-    </header>
+    </section>
+    <section class="chill-universe" style="padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; background: radial-gradient(circle at top right, rgba(255, 209, 102, 0.05), transparent 50%); border-top: 1px solid rgba(255, 255, 255, 0.05);">
+        
+        <div class="chill-header" style="text-align: center; margin-bottom: 4rem;">
+            <span style="font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent-color); font-weight: bold;">Universo Expandido</span>
+            <h2 style="font-size: 2.8rem; margin-top: 0.5rem; background: linear-gradient(to right, #ffd166, #00dfd8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">La Guía Definitiva del Modo Chill 😎</h2>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 1rem auto 0;">No existe un solo tipo de tranquilidad. Explora las diferentes facetas de bajar las revoluciones y fluir con el día.</p>
+        </div>
+
+        <div class="chill-subgrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+            
+            <div class="sub-card" style="background: rgba(30, 41, 59, 0.5); backdrop-filter: blur(5px); border: 1px solid rgba(255, 255, 255, 0.05); padding: 2rem; border-radius: 15px; display: flex; gap: 1.5rem; align-items: center; transition: background 0.3s;">
+                <span style="font-size: 3rem;">☕</span>
+                <div>
+                    <h4 style="font-size: 1.2rem; color: #ffd166; margin-bottom: 0.3rem;">Productividad Relajada</h4>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Tu música favorita de fondo, una taza caliente y cero presiones. Las ideas fluyen solas.</p>
+                </div>
+            </div>
+
+            <div class="sub-card" style="background: rgba(30, 41, 59, 0.5); backdrop-filter: blur(5px); border: 1px solid rgba(255, 255, 255, 0.05); padding: 2rem; border-radius: 15px; display: flex; gap: 1.5rem; align-items: center; transition: background 0.3s;">
+                <span style="font-size: 3rem;">🌴</span>
+                <div>
+                    <h4 style="font-size: 1.2rem; color: #ffd166; margin-bottom: 0.3rem;">Desconexión Total</h4>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Mente en blanco, el sonido del mar de fondo y el teléfono en modo "No molestar".</p>
+                </div>
+            </div>
+
+            <div class="sub-card" style="background: rgba(30, 41, 59, 0.5); backdrop-filter: blur(5px); border: 1px solid rgba(255, 255, 255, 0.05); padding: 2rem; border-radius: 15px; display: flex; gap: 1.5rem; align-items: center; transition: background 0.3s;">
+                <span style="font-size: 3rem;">🍿</span>
+                <div>
+                    <h4 style="font-size: 1.2rem; color: #ffd166; margin-bottom: 0.3rem;">Maratón de Confort</h4>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Ropa cómoda, tu sillón favorito y esa serie que puedes ver una y otra vez sin aburrirte.</p>
+                </div>
+            </div>
+
+            <div class="sub-card" style="background: rgba(30, 41, 59, 0.5); backdrop-filter: blur(5px); border: 1px solid rgba(255, 255, 255, 0.05); padding: 2rem; border-radius: 15px; display: flex; gap: 1.5rem; align-items: center; transition: background 0.3s;">
+                <span style="font-size: 3rem;">🎧</span>
+                <div>
+                    <h4 style="font-size: 1.2rem; color: #ffd166; margin-bottom: 0.3rem;">Vibras Nocturnas</h4>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Cerrando el día con beats lentos, luces bajas y planeando el mañana con calma.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="chill-tip" style="margin-top: 4rem; background: linear-gradient(90deg, rgba(255, 209, 102, 0.1), rgba(0, 223, 216, 0.1)); border: 1px solid rgba(255, 209, 102, 0.2); padding: 1.5rem; border-radius: 50px; text-align: center;">
+            <p style="font-size: 1.1rem; color: var(--text-color);">💡 <strong>Tip Pro:</strong> Activar el <em>Modo Chill</em> al menos 15 minutos al día reduce los niveles de estrés un 100% (confirmado por expertos 🕶️).</p>
+        </div>
+
+    </section>
+    <section class="fire-universe" style="padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; background: radial-gradient(circle at bottom left, rgba(255, 107, 107, 0.08), transparent 50%); border-top: 1px solid rgba(255, 255, 255, 0.05);">
+        
+        <div class="fire-header" style="text-align: center; margin-bottom: 4rem;">
+            <span style="font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; color: #ff6b6b; font-weight: bold;">Máxima Energía</span>
+            <h2 style="font-size: 2.8rem; margin-top: 0.5rem; background: linear-gradient(to right, #ff6b6b, #ff007f); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">El Ecosistema On Fire 🔥</h2>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 1rem auto 0;">Cuando la motivación está al 100% y nada puede detenerte. Así se ve el verdadero modo de alta productividad y enfoque.</p>
+        </div>
+
+        <div class="fire-subgrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+            
+            <div class="sub-card" style="background: rgba(30, 41, 59, 0.5); backdrop-filter: blur(5px); border: 1px solid rgba(255, 255, 255, 0.05); padding: 2rem; border-radius: 15px; display: flex; gap: 1.5rem; align-items: center; transition: transform 0.3s;">
+                <span style="font-size: 3rem;">🎯</span>
+                <div>
+                    <h4 style="font-size: 1.2rem; color: #ff6b6b; margin-bottom: 0.3rem;">Enfoque Láser</h4>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Cero distracciones. Bloqueas el tiempo, apagas las notificaciones y destruyes tu lista de tareas.</p>
+                </div>
+            </div>
+
+            <div class="sub-card" style="background: rgba(30, 41, 59, 0.5); backdrop-filter: blur(5px); border: 1px solid rgba(255, 255, 255, 0.05); padding: 2rem; border-radius: 15px; display: flex; gap: 1.5rem; align-items: center; transition: transform 0.3s;">
+                <span style="font-size: 3rem;">💪</span>
+                <div>
+                    <h4 style="font-size: 1.2rem; color: #ff6b6b; margin-bottom: 0.3rem;">Rendimiento Físico</h4>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Esa energía extra en el entrenamiento donde rompes tus propios récords personales.</p>
+                </div>
+            </div>
+
+            <div class="sub-card" style="background: rgba(30, 41, 59, 0.5); backdrop-filter: blur(5px); border: 1px solid rgba(255, 255, 255, 0.05); padding: 2rem; border-radius: 15px; display: flex; gap: 1.5rem; align-items: center; transition: transform 0.3s;">
+                <span style="font-size: 3rem;">⚡</span>
+                <div>
+                    <h4 style="font-size: 1.2rem; color: #ff6b6b; margin-bottom: 0.3rem;">Momento de Impacto</h4>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Cuando la inspiración llega de golpe y trabajas a una velocidad increíble porque todo encaja.</p>
+                </div>
+            </div>
+
+            <div class="sub-card" style="background: rgba(30, 41, 59, 0.5); backdrop-filter: blur(5px); border: 1px solid rgba(255, 255, 255, 0.05); padding: 2rem; border-radius: 15px; display: flex; gap: 1.5rem; align-items: center; transition: transform 0.3s;">
+                <span style="font-size: 3rem;">🏆</span>
+                <div>
+                    <h4 style="font-size: 1.2rem; color: #ff6b6b; margin-bottom: 0.3rem;">Racha de Éxitos</h4>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Terminar el día sabiendo que ganaste la jornada y completaste todo lo que te propusiste.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="fire-alert" style="margin-top: 4rem; background: linear-gradient(90deg, rgba(255, 107, 107, 0.1), rgba(255, 0, 127, 0.1)); border: 1px solid rgba(255, 107, 107, 0.2); padding: 1.5rem; border-radius: 50px; text-align: center;">
+            <p style="font-size: 1.1rem; color: var(--text-color);">🚀 <strong>Estado actual:</strong> Nivel de motivación peligrosamente alto. ¡Aprovecha el impulso antes de que se enfríe!</p>
+        </div>
+
+    </section>
+    <section class="mindblown-universe" style="padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; background: radial-gradient(circle at center, rgba(121, 40, 202, 0.08), transparent 60%); border-top: 1px solid rgba(255, 255, 255, 0.05); position: relative;">
+        
+        <div style="position: absolute; top: 10%; left: 5%; width: 100px; height: 100px; background: rgba(121, 40, 202, 0.1); filter: blur(50px); border-radius: 50%; z-index: -1;"></div>
+        <div style="position: absolute; bottom: 15%; right: 8%; width: 150px; height: 150px; background: rgba(0, 124, 240, 0.1); filter: blur(70px); border-radius: 50%; z-index: -1;"></div>
+
+        <div class="mindblown-header" style="text-align: center; margin-bottom: 4rem;">
+            <span style="font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; color: #a855f7; font-weight: bold;">Epifanía Digital</span>
+            <h2 style="font-size: 2.8rem; margin-top: 0.5rem; background: linear-gradient(to right, #a855f7, #007cf0); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">El Vórtice Mindblown 🤯</h2>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 1rem auto 0;">Ese instante preciso en que una nueva información expande tus horizontes y ya nada vuelve a ser igual. Una explosión de conocimiento.</p>
+        </div>
+
+        <div class="mindblown-subgrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+            
+            <div class="sub-card" style="background: rgba(30, 41, 59, 0.4); backdrop-filter: blur(8px); border: 1px solid rgba(168, 85, 247, 0.1); padding: 2.5rem 2rem; border-radius: 20px; text-align: center; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <div style="font-size: 3.5rem; margin-bottom: 1.5rem; filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.5));">💡</div>
+                <h4 style="font-size: 1.3rem; color: #a855f7; margin-bottom: 0.5rem; font-weight: 600;">El Momento Eureka</h4>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">Cuando esa pieza que faltaba encaja perfectamente y todo cobra sentido de repente.</p>
+            </div>
+
+            <div class="sub-card" style="background: rgba(30, 41, 59, 0.4); backdrop-filter: blur(8px); border: 1px solid rgba(168, 85, 247, 0.1); padding: 2.5rem 2rem; border-radius: 20px; text-align: center; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <div style="font-size: 3.5rem; margin-bottom: 1.5rem; filter: drop-shadow(0 0 10px rgba(0, 124, 240, 0.5));">🕳️</div>
+                <h4 style="font-size: 1.3rem; color: #007cf0; margin-bottom: 0.5rem; font-weight: 600;">Madriguera de Conejo</h4>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">Empiezas investigando un dato y terminas aprendiendo sobre la teoría de cuerdas a las 3 a.m.</p>
+            </div>
+
+            <div class="sub-card" style="background: rgba(30, 41, 59, 0.4); backdrop-filter: blur(8px); border: 1px solid rgba(168, 85, 247, 0.1); padding: 2.5rem 2rem; border-radius: 20px; text-align: center; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <div style="font-size: 3.5rem; margin-bottom: 1.5rem; filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.5));">💥</div>
+                <h4 style="font-size: 1.3rem; color: #a855f7; margin-bottom: 0.5rem; font-weight: 600;">Reinicio Mental</h4>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">Una verdad tan potente que te obliga a cuestionar y reformular todo lo que creías saber.</p>
+            </div>
+
+            <div class="sub-card" style="background: rgba(30, 41, 59, 0.4); backdrop-filter: blur(8px); border: 1px solid rgba(168, 85, 247, 0.1); padding: 2.5rem 2rem; border-radius: 20px; text-align: center; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <div style="font-size: 3.5rem; margin-bottom: 1.5rem; filter: drop-shadow(0 0 10px rgba(0, 124, 240, 0.5));">🌌</div>
+                <h4 style="font-size: 1.3rem; color: #007cf0; margin-bottom: 0.5rem; font-weight: 600;">Visión de Conjunto</h4>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">Poder ver el patrón completo, entendiendo cómo los pequeños detalles forman la gran imagen.</p>
+            </div>
+
+        </div>
+
+        <div class="mindblown-quote" style="margin-top: 4rem; background: rgba(168, 85, 247, 0.05); border-left: 4px solid #a855f7; padding: 2rem; border-radius: 10px; max-width: 800px; margin-left: auto; margin-right: auto; text-align: center;">
+            <p style="font-size: 1.2rem; color: var(--text-color); font-style: italic; line-height: 1.8;">"Una mente expandida por una nueva idea nunca vuelve a sus dimensiones originales." 🧠✨</p>
+        </div>
+
+    </section>
+    <section class="gamer-universe" style="padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; background: radial-gradient(circle at bottom right, rgba(0, 223, 218, 0.08), transparent 50%); border-top: 1px solid rgba(255, 255, 255, 0.05);">
+        
+        <div class="gamer-header" style="text-align: center; margin-bottom: 4rem;">
+            <span style="font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; color: #00dfd8; font-weight: bold;">Nivel Avanzado</span>
+            <h2 style="font-size: 2.8rem; margin-top: 0.5rem; background: linear-gradient(to right, #00dfd8, #7928ca); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Gamer Zone Activada 👾</h2>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 1rem auto 0;">Inmersión total en el juego. Reflejos al límite, estrategia en tiempo real y el setup perfecto para dominar la partida.</p>
+        </div>
+
+        <div class="gamer-subgrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+            
+            <div class="sub-card" style="background: rgba(15, 23, 42, 0.6); border: 2px solid #00dfd8; padding: 2rem; border-radius: 15px; position: relative; overflow: hidden; box-shadow: 0 0 15px rgba(0, 223, 218, 0.1);">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">👑</div>
+                <h4 style="font-size: 1.2rem; color: #00dfd8; margin-bottom: 0.5rem;">Modo Competitivo</h4>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Concentración absoluta. No hay lag, no hay excusas, solo tú superando tus propios récords de puntuación.</p>
+            </div>
+
+            <div class="sub-card" style="background: rgba(15, 23, 42, 0.6); border: 2px solid #7928ca; padding: 2rem; border-radius: 15px; position: relative; overflow: hidden; box-shadow: 0 0 15px rgba(121, 40, 202, 0.1);">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">🖥️</div>
+                <h4 style="font-size: 1.2rem; color: #7928ca; margin-bottom: 0.5rem;">RGB e Inmersión</h4>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Luces de neón sincronizadas, la taza ideal y tus auriculares bloqueando todo el ruido del exterior.</p>
+            </div>
+
+            <div class="sub-card" style="background: rgba(15, 23, 42, 0.6); border: 2px solid #00dfd8; padding: 2rem; border-radius: 15px; position: relative; overflow: hidden; box-shadow: 0 0 15px rgba(0, 223, 218, 0.1);">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">🔊</div>
+                <h4 style="font-size: 1.2rem; color: #00dfd8; margin-bottom: 0.5rem;">Trabajo en Equipo</h4>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Coordinación por chat de voz, risas con amigos y una estrategia impecable para asegurar la victoria.</p>
+            </div>
+
+            <div class="sub-card" style="background: rgba(15, 23, 42, 0.6); border: 2px solid #7928ca; padding: 2rem; border-radius: 15px; position: relative; overflow: hidden; box-shadow: 0 0 15px rgba(121, 40, 202, 0.1);">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">🔓</div>
+                <h4 style="font-size: 1.2rem; color: #7928ca; margin-bottom: 0.5rem;">Logro Desbloqueado</h4>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Esa increíble sensación de superar el nivel más difícil tras haberlo intentado una y otra vez.</p>
+            </div>
+
+        </div>
+
+        <div class="gamer-status" style="margin-top: 4rem; display: flex; justify-content: center; align-items: center; gap: 1rem; background: #0b111e; padding: 1.5rem; border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.05);">
+            <span style="color: #00dfd8; font-weight: bold;">PING: 12ms</span>
+            <span style="color: var(--text-muted);">|</span>
+            <span style="color: #ff007f; font-weight: bold;">FPS: 240</span>
+            <span style="color: var(--text-muted);">|</span>
+            <span style="color: #ffd166; font-weight: bold;">STATUS: GG WP 🎮</span>
+        </div>
+
+    </section>
+
+    <footer>
+        <p>Hecho con ❤️ por jhonathan pedraza y con muchos 💻 🎨 🚀 en 2026</p>
+    </footer>
+
 </body>
 </html>
